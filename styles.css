@@ -1,1 +1,52 @@
-/*  your css code here. If applicable */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.container {
+    text-align: center;
+}
+
+#player-input input {
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+#submit {
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-gap: 10px;
+    margin-top: 20px;
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 36px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.cell:hover {
+    background-color: #f9f9f9;
+}
+
+.message {
+    font-size: 20px;
+    margin: 20px 0;
+}
