@@ -1,6 +1,6 @@
 document.getElementById('submit').addEventListener('click', function() {
-    const player1 = document.getElementById('player1').value;
-    const player2 = document.getElementById('player2').value;
+    const player1 = document.getElementById('player1').value.trim();
+    const player2 = document.getElementById('player2').value.trim();
 
     if (player1 && player2) {
         document.getElementById('player-input').style.display = 'none';
@@ -10,14 +10,18 @@ document.getElementById('submit').addEventListener('click', function() {
         let currentPlayer = player1;
         let currentSymbol = 'X';
         const cells = document.querySelectorAll('.cell');
+        let gameActive = true;
 
         cells.forEach(cell => {
             cell.addEventListener('click', function() {
-                if (cell.innerText === '') {
+                if (cell.innerText === '' && gameActive) {
                     cell.innerText = currentSymbol;
                     if (checkWinner(currentSymbol)) {
                         document.querySelector('.message').innerText = `${currentPlayer} congratulations, you won!`;
-                        cells.forEach(cell => cell.removeEventListener('click', arguments.callee));
+                        gameActive = false; // Stop the game once we have a winner
+                    } else if (isDraw()) {
+                        document.querySelector('.message').innerText = `It's a draw!`;
+                        gameActive = false; // Stop the game if it's a draw
                     } else {
                         currentPlayer = currentPlayer === player1 ? player2 : player1;
                         currentSymbol = currentSymbol === 'X' ? 'O' : 'X';
@@ -46,4 +50,8 @@ function checkWinner(symbol) {
     return winningCombinations.some(combination => 
         combination.every(index => cells[index] === symbol)
     );
+}
+
+function isDraw() {
+    return Array.from(document.querySelectorAll('.cell')).every(cell => cell.innerText !== '');
 }
